@@ -14,7 +14,6 @@ BASE_FILES = ${SRC_DIR}/TTemplate.js\
 	${SRC_DIR}/Data.js\
 	${SRC_DIR}/Template.js\
 	${SRC_DIR}/VirtualTemplate.js\
-	${SRC_DIR}/Parser.js\
 	${SRC_DIR}/Reader.js\
 	${SRC_DIR}/functions.js\
 	${SRC_DIR}/modifiers.js\

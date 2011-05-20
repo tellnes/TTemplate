@@ -7,13 +7,13 @@ TT.VirtualTemplate = function(name, template, info, controlInstance) {
 	this.startStatement = info.statementIndex;
 	this.endStatement = info.closeIndex+1;
 
+	this.statements = template.statements;
+	this.js = template.js;
+
 	this.statementInfo = info;
 	this.controlInstance = controlInstance;
 	
 	this.isVirtual = true;
-};
-TT.VirtualTemplate.prototype.getParser = function() {
-	return this.template.getParser();
 };
 TT.VirtualTemplate.prototype.load = function(cb) {
 	cb(this);
@@ -26,4 +26,10 @@ TT.VirtualTemplate.prototype.evaluate = function(name, data, callback) {
 		return new TT.Reader(vt, data, callback);
 	}
 	
+};
+TT.VirtualTemplate.prototype.getSource = function() {
+	return this.template.parsedSource;
+};
+TT.VirtualTemplate.prototype.getFile = function() {
+	return this.template.getFile();
 };

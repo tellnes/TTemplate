@@ -7,14 +7,11 @@ TT.Reader = function(template, data, callback) {
 	this.data = data;
 	this.scopeIndex = this.data.addScope();
 	
-	this.parser = template.getParser();
-	this.source = this.parser.result;
-	this.statements = this.parser.statements;
+	this.statements = template.statements;
 
 	this.templateData = {
 		Version: TT.Version,
-		source: template.source,
-		file: template.file
+		file: template.getFile()
 	};
 	this.data.set('template', this.templateData);
 	
@@ -46,15 +43,15 @@ TT.Reader.prototype.throwException = function(msg) {
 	throw new TT.Exception(msg, this.getFile(), this.getLine());
 };
 TT.Reader.prototype.getFile = function() {
-	return this.template.file;
+	return this.template.getFile();
 };
 TT.Reader.prototype.getLine = function() {
-	return TT.Exception.calcLine(this.source, this.sliceIndex);
+	return TT.Exception.calcLine(this.template.getSource(), this.sliceIndex);
 };
 
 
 TT.Reader.prototype.read = function() {
-	var source = this.source, statements = this.statements, endStatement = this.template.endStatement, obj;
+	var source = this.template.getSource(), statements = this.statements, endStatement = this.template.endStatement, obj;
 
 	this.index = this.template.startStatement; //console.log(this.template, this.index, this.statements)
 	if (this.template.isVirtual) {
@@ -108,7 +105,7 @@ TT.Reader.prototype.addContent = function(content) {
 };
 
 TT.Reader.prototype.readJS = function() {
-	var js = this.parser.js, length = js.length, i = 0, item, params;
+	var js = this.template.js, length = js.length, i = 0, item, params;
 	if (!length) { return; }
 	
 	for(; i < length;i++) {
@@ -128,7 +125,7 @@ TT.Reader.prototype.evalJS = function(item) {
 	try {
 		eval(item.code);
 	} catch(e) {
-		throw new TT.Exception(e, this.template.file, TT.Exception.calcLine(this.template.source, item.sourceIndex) + (e.line || e.lineNumber || 1)-1 );
+		throw new TT.Exception(e, this.template.getFile(), TT.Exception.calcLine(this.template.getSource(), item.sourceIndex) + (e.line || e.lineNumber || 1)-1 );
 	}
 };
 TT.Reader.prototype.parseFunction = function(obj) {
