@@ -114,7 +114,7 @@ TT.Reader.prototype.readJS = function() {
 		if ('finish' in params) {
 			this.addEventListener('finish', this.evalJS.bind(this, item));
 		} else if ('defer' in params) {
-			window.setTimeout(this.evalJS.bind(this, item), 1);
+			setTimeout(this.evalJS.bind(this, item), 1);
 		} else {
 			this.evalJS.call(this, item);
 		}

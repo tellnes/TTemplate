@@ -19,7 +19,9 @@ TT.getFile = function (file, callback) {
 
 TT.noop = Prototype.emptyFunction;
 
-Object.extend(TT.modifiers.all, {
+TT.extend = Object.extend;
+
+TT.extend(TT.modifiers.all, {
 	"isElement": Object.isElement.methodize(),
 	"isNumber": Object.isNumber.methodize(),
 	"isString": Object.isString.methodize(),
@@ -31,7 +33,7 @@ Object.extend(TT.modifiers.all, {
 	"toJSON": Object.toJSON.methodize(),
 	"toHTML": Object.toHTML.methodize()
 });
-Object.extend(TT.modifiers.object, {
+TT.extend(TT.modifiers.object, {
 	"keys": Object.keys.methodize(),
 	"values": Object.values.methodize(),
 	"toQueryString": Object.toQueryString.methodize(),
@@ -52,7 +54,7 @@ Object.extend(TT.modifiers.object, {
 	"pluck": Enumerable.pluck
 	
 });
-Object.extend(TT.modifiers.string, {
+TT.extend(TT.modifiers.string, {
 	regex_replace: function (regexp, replace) {
 		return this.gsub(new RegExp(regexp.slice(1, -1)), replace);
 	}

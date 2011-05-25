@@ -1,5 +1,5 @@
 
 
-window.TTemplate = TT;
+global.TTemplate = TT;
 
 }(this));

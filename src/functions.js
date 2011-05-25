@@ -27,7 +27,7 @@ TT.functions.counter = function(params) {
 			assign: null
 		};
 	}
-	Object.extend(info, params);
+	TT.extend(info, params);
 	
 	if (!('_counter' in info) || 'start' in params) {
 		info._counter = info.start;
